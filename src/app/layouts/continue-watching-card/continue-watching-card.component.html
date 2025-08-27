@@ -1,0 +1,26 @@
+<div class="continue-watching-card">
+  <!-- Background Image Section -->
+  <div class="card-background" [style.background-image]="'url(' + cardData.backgroundImage + ')'">
+
+    <!-- Content Section -->
+    <div class="content-section">
+      <!-- Duration Badge -->
+      <div class="duration-badge">
+        {{ cardData.duration }}
+      </div>
+    </div>
+  </div>
+  <div class="video-status">
+    <img src="assets/images/video-status.png" alt="Video Status" class="video-status-image">
+  </div>
+
+  <!-- Bottom Info Section -->
+  <div class="bottom-section">
+    <div class="video-title">{{ cardData.title }}</div>
+    <div class="video-meta">
+      <span class="video-speaker">by {{ cardData.speaker.name }}</span>
+      <span class="separator">•</span>
+      <span class="time-left">{{ cardData.timeLeft }}</span>
+    </div>
+  </div>
+</div>

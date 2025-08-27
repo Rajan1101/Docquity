@@ -1,0 +1,221 @@
+<div class="webinar-card" [class.interactive-size]="webinarData.showInteractiveTab">
+  <!-- Profile Header Section -->
+  <div *ngIf="webinarData.showProfileHeader" class="profile-header">
+    <div class="profile-info">
+      <img [src]="profileData.avatar" alt="Profile" class="profile-avatar" />
+      <div class="profile-details">
+        <div class="profile-name">{{ profileData.name }}</div>
+        <div class="profile-meta">
+          <span class="sponsored-by">{{ profileData.sponsoredBy }}</span>
+        </div>
+        <div class="profile-stats">
+          <span class="followers">{{ profileData.followers }}</span>
+          <span class="separator">•</span>
+          <span class="time-ago">{{ profileData.timeAgo }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="profile-actions">
+      <button class="follow-btn">
+        <img
+          [src]="profileData.images.plusIcon"
+          alt="Follow"
+          class="plus-icon"
+        />
+        Follow
+      </button>
+      <button class="menu-btn">
+        <img [src]="profileData.images.menuIcon" alt="Menu" class="menu-icon" />
+      </button>
+    </div>
+  </div>
+  <!-- Video Thumbnail Section -->
+  <div class="video-section">
+    <img
+      [src]="webinarData.thumbnail"
+      alt="Webinar Thumbnail"
+      class="video-thumbnail"
+    />
+
+    <!-- Video Overlay Elements -->
+    <div *ngIf="webinarData.showVideoOverlay" class="video-overlay">
+      <!-- Top Right Controls -->
+      <div *ngIf="webinarData.showTopRightControls" class="top-right-controls">
+        <!-- CC Icon -->
+        <div class="cc-icon">
+          <img
+            [src]="profileData.images.ccIcon"
+            alt="Closed Captions"
+            class="cc-img"
+          />
+        </div>
+        <!-- Mute Icon -->
+        <div class="mute-icon">
+          <img
+            [src]="profileData.images.muteIcon"
+            alt="Mute"
+            class="mute-img"
+          />
+        </div>
+      </div>
+
+      <!-- Live Indicator and Viewer Count -->
+      <div *ngIf="webinarData.isLive" class="live-viewer-section">
+        <!-- Live Indicator -->
+        <div [class]="webinarData.showLiveIconLight ? 'live-indicator-light' : 'live-indicator-dark'">
+          <img [src]="profileData.images.liveIcon" alt="Live" class="live-icon" />
+          <span class="live-text">Live</span>
+        </div>
+
+        <!-- Viewer Count -->
+        <div class="viewer-count">
+          <img
+            [src]="profileData.images.peopleIcon"
+            alt="Viewers"
+            class="viewer-icon"
+          />
+          <span class="viewer-text">{{ webinarData.viewerCount }}</span>
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div class="duration">{{ webinarData.duration }}</div>
+    </div>
+  </div>
+  <div *ngIf="webinarData.isLive" class="video-status-complete">
+    <img src="assets/images/video-status-complete.png" alt="Video Status Complete" class="video-status-complete-image">
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-content">
+    <!-- Credits Badge -->
+    <div class="credits-badge">
+      <img
+        [src]="profileData.images.starIcon"
+        alt="Credits"
+        class="star-icon"
+      />
+      <span class="credits-text"
+        >{{ webinarData.credits }} Credits
+        <span
+          [class]="
+            webinarData.expirySoon ? 'expiry-text-soon' : 'expiry-text-far'
+          "
+          *ngIf="webinarData.showCreditExpiry"
+          >(Expires in {{ webinarData.expiryDay }} days)</span
+        ></span
+      >
+    </div>
+
+    <!-- Title -->
+    <h3 class="webinar-title">
+      {{ webinarData.title }}
+    </h3>
+
+    <!-- Speaker Info -->
+    <div class="speaker-info">
+      <img
+        [src]="webinarData.speaker.avatar"
+        alt="Speaker"
+        class="speaker-avatar"
+      />
+      <span class="speaker-name">by {{ webinarData.speaker.name }}</span>
+    </div>
+
+    <!-- Key Highlights -->
+    <div class="key-highlights">
+      <div [class]="currentKeyHighlight.image ? '' : 'add-padding'">
+        <div *ngIf="currentKeyHighlight.image; else textOnly" class="highlights-with-image">
+        <img [src]="profileData.images.keyHighlightImage" alt="Key Highlights" class="highlights-image">
+        <div class="highlights-text">
+          <div class="highlights-header">{{ currentKeyHighlight.Title }}</div>
+          <div class="highlights-content">{{ currentKeyHighlight.content }}</div>
+        </div>
+      </div>
+      <ng-template #textOnly>
+        <div class="highlights-header">{{ currentKeyHighlight.Title }}</div>
+        <div class="highlights-content">{{ currentKeyHighlight.content }}</div>
+      </ng-template>
+      </div>
+
+    </div>
+
+    <!-- Watch Now Button -->
+    <button *ngIf="webinarData.showWatchNow" class="watch-now-btn">
+      Watch now
+    </button>
+
+    <!-- Goes Live On Section -->
+  </div>
+  <div *ngIf="webinarData.showNotify" class="goes-live-section">
+    <div class="goes-live-content">
+      <div class="goes-live-text">Goes live on</div>
+      <div class="goes-live-datetime">7 Jan 2025, 12:30 PM</div>
+    </div>
+    <button class="notify-me-btn">
+      <img [src]="profileData.images.bellIcon" alt="Notify" class="bell-icon" />
+      Notify me
+    </button>
+  </div>
+  <div *ngIf="webinarData.showInteractiveTab" class="interactive-section">
+    <!-- Stats Section -->
+     <hr>
+    <div class="stats-section">
+      <div class="stats-left">
+        <div class="stats-item">
+          <span class="stats-count">{{
+            webinarData.interactiveData.likes
+          }}</span>
+          <span class="stats-label">Likes</span>
+        </div>
+        <div class="stats-separator">•</div>
+        <div class="stats-item">
+          <span class="stats-count">{{
+            webinarData.interactiveData.comments
+          }}</span>
+          <span class="stats-label">Comments</span>
+        </div>
+      </div>
+      <div class="stats-right">
+        <span class="stats-count">{{ webinarData.interactiveData.views }}</span>
+        <span class="stats-label">Views</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons Section -->
+    <div class="action-buttons">
+      <button class="action-btn">
+        <img
+          [src]="profileData.images.likeIcon"
+          alt="Like"
+          class="action-icon"
+        />
+        <span class="action-label">Like</span>
+      </button>
+      <button class="action-btn">
+        <img
+          [src]="profileData.images.commentIcon"
+          alt="Comment"
+          class="action-icon"
+        />
+        <span class="action-label">Comment</span>
+      </button>
+      <button class="action-btn">
+        <img
+          [src]="profileData.images.repostIcon"
+          alt="Repost"
+          class="action-icon"
+        />
+        <span class="action-label">Repost</span>
+      </button>
+      <button class="action-btn">
+        <img
+          [src]="profileData.images.shareIcon"
+          alt="Share"
+          class="action-icon"
+        />
+        <span class="action-label">Share</span>
+      </button>
+    </div>
+  </div>
+</div>

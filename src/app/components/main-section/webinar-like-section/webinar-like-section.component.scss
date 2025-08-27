@@ -1,0 +1,234 @@
+// SCSS Variables
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$text-muted: #9ca3af;
+$background-white: #ffffff;
+$background-light: #f3f4f6;
+$border-light: #e5e7eb;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$transition-fast: 0.2s ease;
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+// Mixins
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.webinar-like-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 0;
+
+  .page-title {
+    margin-bottom: 24px;
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0;
+      font-family: "Lexend Deca", sans-serif;
+    }
+  }
+
+  .content-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+}
+
+/* Filters Sidebar */
+.filters-sidebar {
+  background: $background-white;
+  // border: 1px solid $border-light;
+  border-radius: $border-radius-md;
+  padding: 16px;
+  position: sticky;
+  top: 24px;
+
+  .filter-section {
+    border-bottom: 1px solid $border-light;
+    padding: 16px 0;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .section-header {
+      @include flex-between;
+      cursor: pointer;
+      // margin-bottom: 12px;
+
+      .section-title {
+        font-size: 16px;
+        font-weight: 400;
+        color: $text-primary;
+      }
+
+      .toggle-icon {
+        width: 16px;
+        height: 16px;
+        transition: transform $transition-fast;
+        transform: rotate(0deg);
+
+        &.expanded {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.expanded {
+          margin-bottom: 12px;
+
+      }
+    }
+
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height $transition-fast ease;
+
+      &.expanded {
+        max-height: 400px;
+      }
+
+      .search-box {
+        position: relative;
+        margin-bottom: 12px;
+
+        .search-icon {
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 16px;
+          height: 16px;
+          opacity: 0.5;
+        }
+
+        .search-input {
+          width: 100%;
+          padding: 8px 12px 8px 36px;
+          border: 1px solid $border-light;
+          border-radius: $border-radius-sm;
+          font-size: 14px;
+          outline: none;
+          transition: border-color $transition-fast;
+
+          &:focus {
+            border-color: #2563eb;
+          }
+
+          &::placeholder {
+            color: $text-muted;
+          }
+        }
+      }
+
+      .filter-options {
+        max-height: 200px;
+        overflow-y: auto;
+
+        .filter-option {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 0;
+          cursor: pointer;
+          font-size: 14px;
+          color: $text-secondary;
+
+          &:hover {
+            color: $text-primary;
+          }
+
+          .checkbox {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+          }
+
+          .option-text {
+            flex: 1;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Webinars Content */
+.webinars-content {
+  .webinars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+    justify-items: center;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .webinar-like-container {
+    .content-layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .filters-sidebar {
+      position: static;
+      order: 2;
+    }
+
+    .webinars-content {
+      order: 1;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .webinar-like-container {
+    padding: 16px;
+
+    .page-title h1 {
+      font-size: 20px;
+    }
+
+    .content-layout {
+      gap: 16px;
+    }
+
+    .filters-sidebar {
+      padding: 12px;
+
+      .filter-section {
+        padding: 12px 0;
+
+        .section-header .section-title {
+          font-size: 15px;
+        }
+
+        .section-content {
+          .filter-options .filter-option {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+
+    .webinars-content .webinars-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+}

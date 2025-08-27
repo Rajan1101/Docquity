@@ -1,0 +1,22 @@
+<div class="speaker-card">
+  <!-- Avatar Section -->
+  <div class="avatar-section">
+    <div class="avatar-container">
+      <img [src]="speakerData.avatar" [alt]="speakerData.name"
+           [class]="speakerData.isLive ? 'speaker-avatar live' : 'speaker-avatar'">
+      <div *ngIf="speakerData.isLive" class="live-indicator">
+        <span class="live-dot"></span>
+        <span class="live-text">Live</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Speaker Info Section -->
+  <div class="speaker-info">
+    <div class="speaker-name">
+      {{ speakerData.name }}
+      <img src="assets/icons/dropdown.png" alt="Arrow" class="dropdown-arrow">
+    </div>
+    <div class="speaker-specialty">{{ speakerData.specialty }}</div>
+  </div>
+</div>

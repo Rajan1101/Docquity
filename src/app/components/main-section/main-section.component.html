@@ -1,0 +1,90 @@
+<div class="Live-Webinar-section">
+  <div class="section-header">
+    <h2 class="section-title">Live webinars</h2>
+    <button class="view-all-btn">View all</button>
+  </div>
+  <div class="webinar-grid">
+    <app-webinar-card
+      *ngFor="let webinar of webinarsData; trackBy: trackByTitle"
+      [webinarData]="webinar"
+    >
+    </app-webinar-card>
+  </div>
+</div>
+<div class="upcomming-webinar-section">
+  <div class="section-header">
+    <h2 class="section-title">Upcoming webinars</h2>
+    <button class="view-all-btn">View all</button>
+  </div>
+  <div class="webinar-grid">
+    <app-webinar-card
+      *ngFor="let webinar of upcomingWebinarsData; trackBy: trackByTitle"
+      [webinarData]="webinar"
+    >
+    </app-webinar-card>
+  </div>
+</div>
+
+<div class="continue-watching-section">
+  <div class="section-header">
+    <h2 class="section-title">Continue Watching</h2>
+    <button class="view-all-btn">View all</button>
+  </div>
+  <div class="continue-watching-carousel">
+    <app-continue-watching-card
+      *ngFor="
+        let card of continueWatchingData;
+        trackBy: trackByContinueWatchingTitle
+      "
+      [cardData]="card"
+    >
+    </app-continue-watching-card>
+  </div>
+</div>
+
+<div class="webinar-based-on-interest-section">
+  <div class="section-header">
+    <h2 class="section-title">Webinars Based on cardiology</h2>
+    <button class="view-all-btn">View all</button>
+  </div>
+  <div class="webinar-grid">
+    <app-webinar-card
+      *ngFor="let webinar of webinarsInterestBasedData; trackBy: trackByTitle"
+      [webinarData]="webinar"
+    >
+    </app-webinar-card>
+  </div>
+</div>
+
+<div class="top-speaker-section">
+  <div class="section-header">
+    <h2 class="section-title">Top Speaker</h2>
+    <button class="view-all-btn">View all</button>
+  </div>
+  <div class="top-speaker-carousel">
+    <app-speaker-card
+      *ngFor="let speaker of topSpeakersData; trackBy: trackBySpeakerName"
+      [speakerData]="speaker"
+    >
+    </app-speaker-card>
+  </div>
+</div>
+
+<div class="browser-topic-section">
+  <div class="section-header">
+    <h2 class="section-title">Browse by topic</h2>
+    <button class="view-all-btn">View all</button>
+  </div>
+  <div class="browse-topic-container">
+      <app-browse-topic></app-browse-topic>
+  </div>
+</div>
+
+<div class="webinar-you-may-like-section">
+  <div class="section-header">
+    <h2 class="section-title">Webinar you may like</h2>
+  </div>
+  <div class="webinar-you-may-like-container">
+    <app-webinar-like-section></app-webinar-like-section>
+  </div>
+</div>

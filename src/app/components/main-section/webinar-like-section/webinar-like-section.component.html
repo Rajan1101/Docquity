@@ -1,0 +1,72 @@
+<div class="webinar-like-container">
+
+  <div class="content-layout">
+    <!-- Left Sidebar with Filters -->
+    <div class="filters-sidebar">
+      <div
+        *ngFor="let section of filterSections; let i = index"
+        class="filter-section"
+      >
+        <!-- Section Header -->
+        <div
+          class="section-header"
+          (click)="toggleSection(i)"
+          [class.expanded]="section.isExpanded"
+        >
+          <span class="section-title">{{ section.title }}</span>
+          <img
+            src="assets/icons/dropdown.png"
+            alt="Toggle"
+            class="toggle-icon"
+            [class.expanded]="section.isExpanded"
+          >
+        </div>
+
+        <!-- Section Content -->
+        <div
+          class="section-content"
+          [class.expanded]="section.isExpanded"
+        >
+          <!-- Search Box -->
+          <div class="search-box">
+            <img src="assets/icons/Search.png" alt="Search" class="search-icon">
+            <input
+              type="text"
+              placeholder="Search"
+              [value]="section.searchTerm"
+              (input)="section.searchTerm = $any($event.target).value"
+              class="search-input"
+            >
+          </div>
+
+          <!-- Filter Options -->
+          <div class="filter-options">
+            <label
+              *ngFor="let option of getFilteredOptions(section)"
+              class="filter-option"
+            >
+              <input
+                type="checkbox"
+                [checked]="option.checked"
+                (change)="option.checked = $any($event.target).checked"
+                class="checkbox"
+              >
+              <span class="option-text">{{ option.name }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Content Area with Webinars -->
+    <div class="webinars-content">
+      <div class="webinars-grid">
+        <app-webinar-card
+          *ngFor="let webinar of webinarsData; trackBy: trackByTitle"
+          [webinarData]="webinar"
+        >
+        </app-webinar-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<header class="header">
+  <div class="header-container">
+    <!-- Logo -->
+    <div class="logo-section">
+      <img src="assets/icons/header.svg" alt="Docquity" class="logo">
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-section">
+      <div class="search-container">
+        <input
+          type="text"
+          placeholder="Search in docquity"
+          class="search-input"
+          (keyup.enter)="onSearchSubmit()"
+        >
+        <button class="search-btn" (click)="onSearchSubmit()">
+          <img src="assets/icons/Search.png" alt="Search" class="search-icon">
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Icons -->
+    <div class="nav-section">
+      <!-- Home -->
+      <div class="nav-item">
+        <img src="assets/icons/Home.png" alt="Home" class="nav-icon">
+        <span class="nav-label">Home</span>
+      </div>
+
+      <!-- Webinar -->
+      <div class="nav-item active">
+        <img src="assets/icons/video.png" alt="Webinar" class="nav-icon">
+        <span class="nav-label">Webinar</span>
+      </div>
+
+      <div class="nav-item">
+        <img src="assets/icons/book.png" alt="Webinar" class="nav-icon">
+        <span class="nav-label">Book</span>
+      </div>
+
+      <!-- Calendar -->
+      <div class="nav-item">
+        <img src="assets/icons/Calender.png" alt="Calendar" class="nav-icon">
+        <span class="nav-label">Calendar</span>
+      </div>
+
+      <!-- Notifications -->
+      <div class="nav-item notification-item" (click)="onNotificationClick()">
+        <div class="notification-wrapper">
+          <img src="assets/icons/Bell.png" alt="Notifications" class="nav-icon">
+          <span class="nav-label">Notifications</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+      <!-- Post Button -->
+      <button class="post-btn" (click)="onPostClick()">
+        <img src="assets/icons/plus.png" alt="Plus" class="plus-icon">
+        <span>Post</span>
+      </button>
+
+      <!-- Profile -->
+      <div class="profile-section" (click)="onProfileClick()">
+        <div class="profile-avatar-container">
+          <img [src]="userProfile.avatar" [alt]="userProfile.name" class="profile-avatar">
+          <img src="assets/icons/green tick.png" alt="Verified" class="green-tick-icon">
+        </div>
+        <span class="profile-name">{{ userProfile.name }}</span>
+        <img src="assets/icons/dropdown.png" alt="Dropdown" class="dropdown-icon">
+      </div>
+    </div>
+  </div>
+</header>
