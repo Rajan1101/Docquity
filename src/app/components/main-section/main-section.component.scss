@@ -1,127 +1,40 @@
-// CSS Custom Properties for better maintainability
+// Essential Variables
 :host {
   --text-primary: #444242;
   --text-secondary: #6b7280;
   --background-white: #ffffff;
   --background-light: #f3f4f6;
   --border-light: #e5e7eb;
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --transition-fast: 0.2s ease;
+  --transition: 0.2s ease;
   --section-padding: 24px;
   --section-max-width: 1200px;
-  --section-margin: 20px auto;
   --grid-gap: 16px;
-  --grid-min-width: 360px;
 }
 
-// SCSS Variables (fallback for older browsers)
-$text-primary: #444242;
-$text-secondary: #6b7280;
-$background-white: #ffffff;
-$background-light: #f3f4f6;
-$border-light: #e5e7eb;
-$border-radius-sm: 4px;
-$border-radius-md: 8px;
-$transition-fast: 0.2s ease;
-
-// Enhanced Mixins
-@mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@mixin flex-start {
-  display: flex;
-  justify-content: flex-start;
-}
-
-@mixin button-reset {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
+// Essential Mixins
 @mixin section-base {
-  padding: var(--section-padding, 24px);
-  max-width: var(--section-max-width, 1200px);
-  margin: var(--section-margin, 20px auto);
+  padding: var(--section-padding);
+  max-width: var(--section-max-width);
+  margin: 20px auto;
 }
 
-@mixin section-header-base {
-  @include flex-between;
-  padding-bottom: 16px;
-}
-
-@mixin section-title-base {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-primary, $text-primary);
-  margin: 0;
-  position: relative;
-  font-family: "Lexend Deca", sans-serif;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-  }
-}
-
-@mixin view-all-button-base {
-  @include button-reset;
-  background: var(--background-white, $background-white);
-  color: var(--text-secondary, $text-secondary);
-  border: 1px solid #000;
-  padding: 5px 12px;
-  align-items: center;
-  border-radius: var(--border-radius-sm, $border-radius-sm);
-  font-size: 14px;
-  font-weight: 500;
-  transition: all var(--transition-fast, $transition-fast);
-
-  &:hover {
-    background: var(--background-light, $background-light);
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-}
-
-@mixin webinar-grid-base {
-  border-radius: var(--border-radius-sm, $border-radius-sm);
+@mixin webinar-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width, 360px), 1fr));
-  gap: var(--grid-gap, 16px);
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: var(--grid-gap);
   justify-items: center;
 }
 
-@mixin carousel-base {
+@mixin carousel {
   display: flex;
-  gap: var(--grid-gap, 16px);
+  gap: var(--grid-gap);
   overflow-x: auto;
   scroll-behavior: smooth;
-
-  // Hide scrollbar but keep functionality
-  scrollbar-width: none; // Firefox
-  -ms-overflow-style: none; // Internet Explorer 10+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
-    display: none; // WebKit browsers
-  }
-}
-
-@mixin hide-scrollbar {
-  scrollbar-width: none; // Firefox
-  -ms-overflow-style: none; // Internet Explorer 10+
-
-  &::-webkit-scrollbar {
-    display: none; // WebKit browsers
+    display: none;
   }
 }
 
@@ -129,194 +42,148 @@ $transition-fast: 0.2s ease;
 .webinar-section {
   @include section-base;
 
-  .webinar-header {
-    margin-bottom: 24px;
-
-    .webinar-title {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--text-primary, $text-primary);
-      margin: 0;
-      font-family: "Lexend Deca", sans-serif;
-    }
+  .webinar-header .webinar-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 24px;
+    font-family: "Lexend Deca", sans-serif;
   }
 
   .webinar-tabs {
-    @include flex-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 24px;
-    border-bottom: 1px solid var(--border-light, $border-light);
+    border-bottom: 1px solid var(--border-light);
 
     .tab-navigation {
       display: flex;
-      gap: 0;
 
       .tab-btn {
-        @include button-reset;
+        background: transparent;
+        border: none;
+        cursor: pointer;
         padding: 12px 24px;
         font-size: 16px;
         font-weight: 500;
-        color: var(--text-secondary, $text-secondary);
+        color: var(--text-secondary);
         border-bottom: 3px solid transparent;
-        transition: all var(--transition-fast, $transition-fast);
-        position: relative;
+        transition: all var(--transition);
 
         &:hover {
-          color: var(--text-primary, $text-primary);
+          color: var(--text-primary);
         }
 
         &.active {
-          color: var(--text-primary, $text-primary);
+          color: var(--text-primary);
           font-weight: 600;
-          border-bottom-color: var(--text-primary, $text-primary);
+          border-bottom-color: var(--text-primary);
         }
       }
     }
 
-    .filter-section {
-      .filter-btn {
-        @include button-reset;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-secondary, $text-secondary);
-        transition: all var(--transition-fast, $transition-fast);
+    .filter-section .filter-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all var(--transition);
 
-        &:hover {
-          background-color: var(--background-light, $background-light);
-          color: var(--text-primary, $text-primary);
-        }
+      &:hover {
+        background-color: var(--background-light);
+        color: var(--text-primary);
+      }
 
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-
-        .filter-icon {
-          width: 24px;
-          height: 24px;
-        }
+      .filter-icon {
+        width: 24px;
+        height: 24px;
       }
     }
   }
 
-  .tab-content {
-    .tab-panel {
-      display: none;
+  .tab-content .tab-panel {
+    display: none;
 
-      &.active {
-        display: block;
-      }
+    &.active {
+      display: block;
+    }
 
-      .webinar-grid {
-        @include webinar-grid-base;
-        background: linear-gradient(
-          to bottom,
-          #ffd2b4 0%,
-          #ffe5d4 50%,
-          #fff8f3 100%
-        );
-        padding: 16px;
-        border-radius: var(--border-radius-sm, $border-radius-sm);
-      }
+    .webinar-grid {
+      @include webinar-grid;
+      background: linear-gradient(
+        to bottom,
+        #ffd2b4 0%,
+        #ffe5d4 50%,
+        #fff8f3 100%
+      );
+      padding: 16px;
+      border-radius: 4px;
     }
   }
 }
 
-// Desktop Layout (Default - 768px and above)
+// Layout Control
 .desktop-layout {
   display: block;
 }
-
-// Mobile Layout (Hidden by default, shown below 768px)
 .mobile-layout {
   display: none;
 }
 
-// Pure CSS Tab Switching (Alternative approach using :target)
-.webinar-section {
-  .tab-panel:target {
-    display: block !important;
-  }
-}
-
-// CSS-only approach using checkboxes (if needed for better compatibility)
-.tab-switcher {
-  display: none;
-
-  &:checked + .tab-panel {
-    display: block;
-  }
-}
-
-// Media Queries for Layout Control
-@media (max-width: 768px) {
-  // Hide desktop layout on mobile
-  .desktop-layout {
-    display: none;
-  }
-
-  // Show mobile layout on mobile
-  .mobile-layout {
-    display: block;
-  }
-
-  .webinar-section {
-    .webinar-header {
-      .webinar-title {
-        font-size: 24px;
-      }
-    }
-
-    .tab-content{
-      .tab-panel.active {
-        .webinar-grid{
-          background: none;
-        }
-      }
-    }
-
-    .webinar-tabs {
-      .tab-navigation {
-        .tab-btn {
-          padding: 10px 16px;
-          font-size: 16px;
-        }
-      }
-
-      .filter-section {
-        .filter-btn {
-          width: 36px;
-          height: 36px;
-        }
-      }
-    }
-  }
-}
-
-// Base section class
+// Base section styles
 .section-base {
   @include section-base;
 
   .section-header {
-    @include section-header-base;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
 
     .section-title {
-      @include section-title-base;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+      font-family: "Lexend Deca", sans-serif;
     }
 
     .view-all-btn {
-      @include view-all-button-base;
+      background: var(--background-white);
+      color: var(--text-secondary);
+      border: 1px solid #000;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+
+      &:hover {
+        background: var(--background-light);
+      }
+      &:active {
+        transform: translateY(1px);
+      }
+      &:focus {
+        outline: 2px solid var(--text-primary);
+        outline-offset: 2px;
+      }
     }
   }
 
   .webinar-grid {
-    @include webinar-grid-base;
+    @include webinar-grid;
   }
 }
 
-// Specific sections extending base
+// Specific sections
 .Live-Webinar-section {
   @extend .section-base;
 
@@ -339,9 +206,8 @@ $transition-fast: 0.2s ease;
   @extend .section-base;
 
   .continue-watching-carousel {
-    @include carousel-base;
+    @include carousel;
 
-    // Ensure cards don't shrink
     app-continue-watching-card {
       flex: 0 0 auto;
     }
@@ -360,9 +226,8 @@ $transition-fast: 0.2s ease;
   @extend .section-base;
 
   .top-speaker-carousel {
-    @include carousel-base;
+    @include carousel;
 
-    // Ensure cards don't shrink
     app-speaker-card {
       flex: 0 0 auto;
     }
@@ -377,23 +242,63 @@ $transition-fast: 0.2s ease;
   @include section-base;
 
   .section-header {
-    @include flex-start;
+    display: flex;
+    justify-content: flex-start;
 
     .section-title {
-      @include section-title-base;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+      font-family: "Lexend Deca", sans-serif;
     }
   }
 }
 
-/* Responsive Design - Optimized with better organization */
+/* ========================================
+   MEDIA QUERIES - Responsive Design
+   ======================================== */
+
 @media (max-width: 768px) {
+  // Layout control
+  .desktop-layout {
+    display: none;
+  }
+  .mobile-layout {
+    display: block;
+  }
+
+  // Update CSS variables for mobile
   :host {
     --section-padding: 16px;
     --grid-gap: 12px;
-    --grid-min-width: 280px;
   }
 
-  // Apply responsive styles to all sections that extend .section-base
+  // Mobile webinar section
+  .webinar-section {
+    .webinar-header .webinar-title {
+      font-size: 24px;
+    }
+
+    .tab-content .tab-panel.active .webinar-grid {
+      background: none;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .webinar-tabs {
+      .tab-navigation .tab-btn {
+        padding: 10px 16px;
+        font-size: 16px;
+      }
+
+      .filter-section .filter-btn {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+
+  // Mobile section styles
   .section-base,
   .Live-Webinar-section,
   .upcomming-webinar-section,
@@ -403,46 +308,26 @@ $transition-fast: 0.2s ease;
   .browser-topic-section,
   .webinar-you-may-like-section {
     .section-header {
-      flex-direction: column;
       align-items: flex-start;
       gap: 12px;
 
       .section-title {
         font-size: 20px;
       }
-
       .view-all-btn {
         align-self: flex-end;
       }
     }
-
 
     .continue-watching-carousel,
     .top-speaker-carousel {
       padding: 12px 0;
     }
   }
+
+  .webinar-based-on-interest-section {
+    .webinar-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }
-
-/* Performance Optimizations */
-// Use hardware acceleration for smoother animations
-.view-all-btn,
-.continue-watching-carousel,
-.top-speaker-carousel {
-  will-change: transform;
-}
-
-// Improve carousel performance
-.continue-watching-carousel,
-.top-speaker-carousel {
-  contain: layout;
-  transform: translateZ(0); // Force hardware acceleration
-}
-
-/* Focus styles for better accessibility */
-.view-all-btn:focus {
-  outline: 2px solid var(--text-primary, $text-primary);
-  outline-offset: 2px;
-}
-
-

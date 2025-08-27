@@ -1,37 +1,21 @@
-// SCSS Variables
+// Essential Variables Only
 $text-primary: #1f2937;
 $text-secondary: #6b7280;
-$text-muted: #9ca3af;
-$background-white: #ffffff;
-$background-light: #f3f4f6;
 $border-light: #e5e7eb;
-$border-radius-sm: 4px;
-$border-radius-md: 8px;
-$transition-fast: 0.2s ease;
-$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-// Mixins
-@mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+$border-radius: 8px;
+$transition: 0.2s ease;
 
 .webinar-like-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 16px 0;
 
-  .page-title {
-    margin-bottom: 24px;
-
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      font-family: "Lexend Deca", sans-serif;
-    }
+  .page-title h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 24px;
+    font-family: "Lexend Deca", sans-serif;
   }
 
   .content-layout {
@@ -44,9 +28,8 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 
 /* Filters Sidebar */
 .filters-sidebar {
-  background: $background-white;
-  // border: 1px solid $border-light;
-  border-radius: $border-radius-md;
+  background: white;
+  border-radius: $border-radius;
   padding: 16px;
   position: sticky;
   top: 24px;
@@ -55,51 +38,37 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid $border-light;
     padding: 16px 0;
 
-    &:first-child {
-      padding-top: 0;
-    }
-
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
+    &:first-child { padding-top: 0; }
+    &:last-child { border-bottom: none; padding-bottom: 0; }
 
     .section-header {
-      @include flex-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       cursor: pointer;
-      // margin-bottom: 12px;
 
       .section-title {
         font-size: 16px;
-        font-weight: 400;
         color: $text-primary;
       }
 
       .toggle-icon {
         width: 16px;
         height: 16px;
-        transition: transform $transition-fast;
-        transform: rotate(0deg);
+        transition: transform $transition;
 
-        &.expanded {
-          transform: rotate(180deg);
-        }
+        &.expanded { transform: rotate(180deg); }
       }
 
-      &.expanded {
-          margin-bottom: 12px;
-
-      }
+      &.expanded { margin-bottom: 12px; }
     }
 
     .section-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height $transition-fast ease;
+      transition: max-height $transition;
 
-      &.expanded {
-        max-height: 400px;
-      }
+      &.expanded { max-height: 400px; }
 
       .search-box {
         position: relative;
@@ -119,18 +88,11 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
           width: 100%;
           padding: 8px 12px 8px 36px;
           border: 1px solid $border-light;
-          border-radius: $border-radius-sm;
+          border-radius: 4px;
           font-size: 14px;
           outline: none;
-          transition: border-color $transition-fast;
 
-          &:focus {
-            border-color: #2563eb;
-          }
-
-          &::placeholder {
-            color: $text-muted;
-          }
+          &:focus { border-color: #2563eb; }
         }
       }
 
@@ -147,19 +109,19 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
           font-size: 14px;
           color: $text-secondary;
 
-          &:hover {
-            color: $text-primary;
+          &:hover { color: $text-primary; }
+
+          .checkbox, .option-text {
+            cursor: pointer;
           }
 
           .checkbox {
             width: 16px;
             height: 16px;
-            cursor: pointer;
           }
 
           .option-text {
             flex: 1;
-            cursor: pointer;
           }
         }
       }
@@ -168,13 +130,11 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Webinars Content */
-.webinars-content {
-  .webinars-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 24px;
-    justify-items: center;
-  }
+.webinars-content .webinars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+  justify-items: center;
 }
 
 /* Responsive Design */
@@ -202,38 +162,23 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
-  .webinar-like-container {
+  .webinar-like-container .page-title h1 {
+    font-size: 20px;
+  }
 
-    .page-title h1 {
-      font-size: 20px;
-    }
+  .webinars-content .webinars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
 
-    .content-layout {
-      gap: 16px;
-      .webinars-content{
-        .webinars-grid{
-          grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
-        }
-      }
-    }
+  .filters-sidebar {
+    padding: 12px;
 
-    .filters-sidebar {
-      padding: 12px;
+    .filter-section {
+      padding: 12px 0;
 
-      .filter-section {
-        padding: 12px 0;
-
-        .section-header .section-title {
-          font-size: 15px;
-        }
-
-        .section-content {
-          .filter-options .filter-option {
-            font-size: 13px;
-          }
-        }
-      }
+      .section-header .section-title { font-size: 15px; }
+      .section-content .filter-options .filter-option { font-size: 13px; }
     }
   }
 }
