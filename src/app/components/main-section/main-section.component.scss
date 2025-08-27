@@ -125,6 +125,176 @@ $transition-fast: 0.2s ease;
   }
 }
 
+// Webinar Section with Tabs
+.webinar-section {
+  @include section-base;
+
+  .webinar-header {
+    margin-bottom: 24px;
+
+    .webinar-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary, $text-primary);
+      margin: 0;
+      font-family: "Lexend Deca", sans-serif;
+    }
+  }
+
+  .webinar-tabs {
+    @include flex-between;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-light, $border-light);
+
+    .tab-navigation {
+      display: flex;
+      gap: 0;
+
+      .tab-btn {
+        @include button-reset;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text-secondary, $text-secondary);
+        border-bottom: 3px solid transparent;
+        transition: all var(--transition-fast, $transition-fast);
+        position: relative;
+
+        &:hover {
+          color: var(--text-primary, $text-primary);
+        }
+
+        &.active {
+          color: var(--text-primary, $text-primary);
+          font-weight: 600;
+          border-bottom-color: var(--text-primary, $text-primary);
+        }
+      }
+    }
+
+    .filter-section {
+      .filter-btn {
+        @include button-reset;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary, $text-secondary);
+        transition: all var(--transition-fast, $transition-fast);
+
+        &:hover {
+          background-color: var(--background-light, $background-light);
+          color: var(--text-primary, $text-primary);
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .filter-icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    .tab-panel {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+
+      .webinar-grid {
+        @include webinar-grid-base;
+        background: linear-gradient(
+          to bottom,
+          #ffd2b4 0%,
+          #ffe5d4 50%,
+          #fff8f3 100%
+        );
+        padding: 16px;
+        border-radius: var(--border-radius-sm, $border-radius-sm);
+      }
+    }
+  }
+}
+
+// Desktop Layout (Default - 768px and above)
+.desktop-layout {
+  display: block;
+}
+
+// Mobile Layout (Hidden by default, shown below 768px)
+.mobile-layout {
+  display: none;
+}
+
+// Pure CSS Tab Switching (Alternative approach using :target)
+.webinar-section {
+  .tab-panel:target {
+    display: block !important;
+  }
+}
+
+// CSS-only approach using checkboxes (if needed for better compatibility)
+.tab-switcher {
+  display: none;
+
+  &:checked + .tab-panel {
+    display: block;
+  }
+}
+
+// Media Queries for Layout Control
+@media (max-width: 768px) {
+  // Hide desktop layout on mobile
+  .desktop-layout {
+    display: none;
+  }
+
+  // Show mobile layout on mobile
+  .mobile-layout {
+    display: block;
+  }
+
+  .webinar-section {
+    .webinar-header {
+      .webinar-title {
+        font-size: 24px;
+      }
+    }
+
+    .tab-content{
+      .tab-panel.active {
+        .webinar-grid{
+          background: none;
+        }
+      }
+    }
+
+    .webinar-tabs {
+      .tab-navigation {
+        .tab-btn {
+          padding: 10px 16px;
+          font-size: 16px;
+        }
+      }
+
+      .filter-section {
+        .filter-btn {
+          width: 36px;
+          height: 36px;
+        }
+      }
+    }
+  }
+}
+
 // Base section class
 .section-base {
   @include section-base;
@@ -246,9 +416,6 @@ $transition-fast: 0.2s ease;
       }
     }
 
-    .webinar-grid {
-      grid-template-columns: 1fr;
-    }
 
     .continue-watching-carousel,
     .top-speaker-carousel {
@@ -263,11 +430,6 @@ $transition-fast: 0.2s ease;
 .continue-watching-carousel,
 .top-speaker-carousel {
   will-change: transform;
-}
-
-// Optimize grid layouts for better performance
-.webinar-grid {
-  contain: layout style;
 }
 
 // Improve carousel performance

@@ -192,13 +192,17 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     .webinars-content {
       order: 1;
+
+      .webinars-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
     }
   }
 }
 
 @media (max-width: 768px) {
   .webinar-like-container {
-    padding: 16px;
 
     .page-title h1 {
       font-size: 20px;
@@ -206,6 +210,12 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     .content-layout {
       gap: 16px;
+      .webinars-content{
+        .webinars-grid{
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+      }
     }
 
     .filters-sidebar {
@@ -224,11 +234,6 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
           }
         }
       }
-    }
-
-    .webinars-content .webinars-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
     }
   }
 }

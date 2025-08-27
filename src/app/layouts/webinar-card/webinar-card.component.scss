@@ -8,7 +8,12 @@ $background-white: #ffffff;
 $background-light: #f3f4f6;
 $border-light: #e5e7eb;
 $border-pink: #ffdad8;
-$gradient-pink: linear-gradient(to bottom, #f8e8e1 0%, #fff5f3 50%, #ffffff 100%);
+$gradient-pink: linear-gradient(
+  to bottom,
+  #f8e8e1 0%,
+  #fff5f3 50%,
+  #ffffff 100%
+);
 $gradient-blue: #d9f4f9;
 $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 $shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -226,7 +231,8 @@ $transition-medium: 0.3s ease;
       .live-icon {
         width: 20px;
         height: 20px;
-        filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(159deg) brightness(104%) contrast(104%);
+        filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
+          saturate(7500%) hue-rotate(159deg) brightness(104%) contrast(104%);
       }
     }
 
@@ -234,8 +240,8 @@ $transition-medium: 0.3s ease;
       position: absolute;
       top: 12px;
       left: 12px;
-      background: #FFE9E7;
-      color: #E2504B;
+      background: #ffe9e7;
+      color: #e2504b;
       padding: 4px 8px;
       border-radius: 16px;
       display: flex;
@@ -247,7 +253,8 @@ $transition-medium: 0.3s ease;
       .live-icon {
         width: 20px;
         height: 20px;
-        filter: brightness(0) saturate(100%) invert(17%) sepia(88%) saturate(2847%) hue-rotate(347deg) brightness(95%) contrast(84%);
+        filter: brightness(0) saturate(100%) invert(17%) sepia(88%)
+          saturate(2847%) hue-rotate(347deg) brightness(95%) contrast(84%);
       }
     }
 
@@ -311,7 +318,7 @@ $transition-medium: 0.3s ease;
     width: auto;
     object-fit: contain;
     margin-top: -2px;
-      z-index: 2;
+    z-index: 2;
   }
 }
 
@@ -591,7 +598,14 @@ $transition-medium: 0.3s ease;
 /* Responsive Design */
 @media (max-width: 768px) {
   .webinar-card {
-    max-width: 100%;
+    max-width: 287px;
+    min-height: 450px;
+    &.interactive-size {
+      min-width: 312px;
+      width: 312px;
+      min-height: 580px;
+      height: 560px;
+    }
 
     .video-section {
       height: 180px;

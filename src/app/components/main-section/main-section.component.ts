@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { WebinarData } from '../../layouts/webinar-card/webinar-card.component';
 import { ContinueWatchingData } from '../../layouts/continue-watching-card/continue-watching-card.component';
 import { SpeakerData } from '../../layouts/speaker-card/speaker-card.component';
@@ -8,7 +8,7 @@ import { SpeakerData } from '../../layouts/speaker-card/speaker-card.component';
   templateUrl: './main-section.component.html',
   styleUrl: './main-section.component.scss'
 })
-export class MainSectionComponent {
+export class MainSectionComponent implements AfterViewInit {
 
   webinarsData: WebinarData[] = [
     {
@@ -373,5 +373,52 @@ export class MainSectionComponent {
   // TrackBy function for speakers
   trackBySpeakerName(index: number, speaker: SpeakerData): string {
     return speaker.name;
+  }
+
+  // Tab switching functionality (only for mobile)
+  ngAfterViewInit(): void {
+    this.initTabSwitching();
+    this.handleResize();
+    window.addEventListener('resize', () => this.handleResize());
+  }
+
+  private handleResize(): void {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      this.initTabSwitching();
+    }
+  }
+
+  private initTabSwitching(): void {
+    const tabButtons = document.querySelectorAll('.mobile-layout .tab-btn');
+    const tabPanels = document.querySelectorAll('.mobile-layout .tab-panel');
+
+    // Remove existing event listeners to prevent duplicates
+    tabButtons.forEach(button => {
+      const newButton = button.cloneNode(true);
+      button.parentNode?.replaceChild(newButton, button);
+    });
+
+    // Re-query after cloning
+    const newTabButtons = document.querySelectorAll('.mobile-layout .tab-btn');
+
+    newTabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+
+        // Remove active class from all buttons and panels
+        newTabButtons.forEach(btn => btn.classList.remove('active'));
+        tabPanels.forEach(panel => panel.classList.remove('active'));
+
+        // Add active class to clicked button
+        button.classList.add('active');
+
+        // Add active class to corresponding panel
+        const targetPanel = document.getElementById(`${tabId}-panel`);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
   }
 }

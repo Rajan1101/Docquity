@@ -1,27 +1,90 @@
-<div class="Live-Webinar-section">
-  <div class="section-header">
-    <h2 class="section-title">Live webinars</h2>
-    <button class="view-all-btn">View all</button>
+<!-- Desktop Layout (768px and above) -->
+<div class="desktop-layout">
+  <div class="Live-Webinar-section">
+    <div class="section-header">
+      <h2 class="section-title">Live webinars</h2>
+      <button class="view-all-btn">View all</button>
+    </div>
+    <div class="webinar-grid">
+      <app-webinar-card
+        *ngFor="let webinar of webinarsData; trackBy: trackByTitle"
+        [webinarData]="webinar"
+      >
+      </app-webinar-card>
+    </div>
   </div>
-  <div class="webinar-grid">
-    <app-webinar-card
-      *ngFor="let webinar of webinarsData; trackBy: trackByTitle"
-      [webinarData]="webinar"
-    >
-    </app-webinar-card>
+  <div class="upcomming-webinar-section">
+    <div class="section-header">
+      <h2 class="section-title">Upcoming webinars</h2>
+      <button class="view-all-btn">View all</button>
+    </div>
+    <div class="webinar-grid">
+      <app-webinar-card
+        *ngFor="let webinar of upcomingWebinarsData; trackBy: trackByTitle"
+        [webinarData]="webinar"
+      >
+      </app-webinar-card>
+    </div>
   </div>
 </div>
-<div class="upcomming-webinar-section">
-  <div class="section-header">
-    <h2 class="section-title">Upcoming webinars</h2>
-    <button class="view-all-btn">View all</button>
-  </div>
-  <div class="webinar-grid">
-    <app-webinar-card
-      *ngFor="let webinar of upcomingWebinarsData; trackBy: trackByTitle"
-      [webinarData]="webinar"
-    >
-    </app-webinar-card>
+
+<!-- Mobile Tabbed Layout (below 768px) -->
+<div class="mobile-layout">
+  <div class="webinar-section">
+    <!-- Webinar Header -->
+    <div class="webinar-header">
+      <h1 class="webinar-title">Webinar</h1>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="webinar-tabs">
+      <div class="tab-navigation">
+        <button class="tab-btn active" data-tab="for-you">For you</button>
+        <button class="tab-btn" data-tab="live">Live</button>
+        <button class="tab-btn" data-tab="upcoming">Upcoming</button>
+      </div>
+      <div class="filter-section">
+        <button class="filter-btn">
+          <img src="assets/icons/Filter.png" alt="Filter" class="filter-icon">
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <!-- For You Tab -->
+      <div class="tab-panel active" id="for-you-panel">
+        <div class="webinar-grid">
+          <app-webinar-card
+            *ngFor="let webinar of webinarsInterestBasedData; trackBy: trackByTitle"
+            [webinarData]="webinar"
+          >
+          </app-webinar-card>
+        </div>
+      </div>
+
+      <!-- Live Tab -->
+      <div class="tab-panel" id="live-panel">
+        <div class="webinar-grid">
+          <app-webinar-card
+            *ngFor="let webinar of webinarsData; trackBy: trackByTitle"
+            [webinarData]="webinar"
+          >
+          </app-webinar-card>
+        </div>
+      </div>
+
+      <!-- Upcoming Tab -->
+      <div class="tab-panel" id="upcoming-panel">
+        <div class="webinar-grid">
+          <app-webinar-card
+            *ngFor="let webinar of upcomingWebinarsData; trackBy: trackByTitle"
+            [webinarData]="webinar"
+          >
+          </app-webinar-card>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
