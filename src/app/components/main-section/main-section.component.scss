@@ -1,5 +1,21 @@
-// SCSS Variables
+// CSS Custom Properties for better maintainability
+:host {
+  --text-primary: #444242;
+  --text-secondary: #6b7280;
+  --background-white: #ffffff;
+  --background-light: #f3f4f6;
+  --border-light: #e5e7eb;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --transition-fast: 0.2s ease;
+  --section-padding: 24px;
+  --section-max-width: 1200px;
+  --section-margin: 20px auto;
+  --grid-gap: 16px;
+  --grid-min-width: 360px;
+}
 
+// SCSS Variables (fallback for older browsers)
 $text-primary: #444242;
 $text-secondary: #6b7280;
 $background-white: #ffffff;
@@ -9,11 +25,16 @@ $border-radius-sm: 4px;
 $border-radius-md: 8px;
 $transition-fast: 0.2s ease;
 
-// Mixins
+// Enhanced Mixins
 @mixin flex-between {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
 }
 
 @mixin button-reset {
@@ -22,50 +43,112 @@ $transition-fast: 0.2s ease;
   cursor: pointer;
 }
 
-.Live-Webinar-section {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
+@mixin section-base {
+  padding: var(--section-padding, 24px);
+  max-width: var(--section-max-width, 1200px);
+  margin: var(--section-margin, 20px auto);
+}
+
+@mixin section-header-base {
+  @include flex-between;
+  padding-bottom: 16px;
+}
+
+@mixin section-title-base {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary, $text-primary);
+  margin: 0;
+  position: relative;
+  font-family: "Lexend Deca", sans-serif;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+  }
+}
+
+@mixin view-all-button-base {
+  @include button-reset;
+  background: var(--background-white, $background-white);
+  color: var(--text-secondary, $text-secondary);
+  border: 1px solid #000;
+  padding: 5px 12px;
+  align-items: center;
+  border-radius: var(--border-radius-sm, $border-radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast, $transition-fast);
+
+  &:hover {
+    background: var(--background-light, $background-light);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+@mixin webinar-grid-base {
+  border-radius: var(--border-radius-sm, $border-radius-sm);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width, 360px), 1fr));
+  gap: var(--grid-gap, 16px);
+  justify-items: center;
+}
+
+@mixin carousel-base {
+  display: flex;
+  gap: var(--grid-gap, 16px);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  // Hide scrollbar but keep functionality
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // Internet Explorer 10+
+
+  &::-webkit-scrollbar {
+    display: none; // WebKit browsers
+  }
+}
+
+@mixin hide-scrollbar {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // Internet Explorer 10+
+
+  &::-webkit-scrollbar {
+    display: none; // WebKit browsers
+  }
+}
+
+// Base section class
+.section-base {
+  @include section-base;
 
   .section-header {
-    @include flex-between;
-    padding-bottom: 16px;
+    @include section-header-base;
 
     .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
+      @include section-title-base;
     }
 
     .view-all-btn {
-      @include button-reset;
-      background: $background-white;
-      color: $text-secondary;
-      border: 1px solid #000;
-      padding: 5px 12px;
-      align-items: center;
-      border-radius: $border-radius-sm;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all $transition-fast;
-
-      &:active {
-        transform: translateY(1px);
-      }
+      @include view-all-button-base;
     }
   }
+
+  .webinar-grid {
+    @include webinar-grid-base;
+  }
+}
+
+// Specific sections extending base
+.Live-Webinar-section {
+  @extend .section-base;
 
   .webinar-grid {
     background: linear-gradient(
@@ -75,172 +158,18 @@ $transition-fast: 0.2s ease;
       #fff8f3 100%
     );
     padding: 16px;
-    border-radius: 4px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 16px;
-    justify-items: center;
   }
 }
 
 .upcomming-webinar-section {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-
-  .section-header {
-    @include flex-between;
-    padding-bottom: 16px;
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
-    }
-
-    .view-all-btn {
-      @include button-reset;
-      background: $background-white;
-      color: $text-secondary;
-      border: 1px solid #000;
-      padding: 5px 12px;
-      align-items: center;
-      border-radius: $border-radius-sm;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all $transition-fast;
-
-      &:active {
-        transform: translateY(1px);
-      }
-    }
-  }
-
-  .webinar-grid {
-    border-radius: 4px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 16px;
-    justify-items: center;
-  }
+  @extend .section-base;
 }
 
 .continue-watching-section {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-
-  .section-header {
-    @include flex-between;
-    padding-bottom: 16px;
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
-    }
-
-    .view-all-btn {
-      @include button-reset;
-      background: $background-white;
-      color: $text-secondary;
-      border: 1px solid #000;
-      padding: 5px 12px;
-      align-items: center;
-      border-radius: $border-radius-sm;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all $transition-fast;
-
-      &:active {
-        transform: translateY(1px);
-      }
-    }
-  }
-}
-
-.continue-watching-section {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-
-  .section-header {
-    @include flex-between;
-    padding-bottom: 16px;
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
-    }
-
-    .view-all-btn {
-      @include button-reset;
-      background: $background-white;
-      color: $text-secondary;
-      border: 1px solid #000;
-      padding: 5px 12px;
-      align-items: center;
-      border-radius: $border-radius-sm;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all $transition-fast;
-
-      &:active {
-        transform: translateY(1px);
-      }
-    }
-  }
+  @extend .section-base;
 
   .continue-watching-carousel {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-
-    // Hide scrollbar but keep functionality
-    scrollbar-width: none; // Firefox
-    -ms-overflow-style: none; // Internet Explorer 10+
-
-    &::-webkit-scrollbar {
-      display: none; // WebKit browsers
-    }
+    @include carousel-base;
 
     // Ensure cards don't shrink
     app-continue-watching-card {
@@ -250,117 +179,18 @@ $transition-fast: 0.2s ease;
 }
 
 .webinar-based-on-interest-section {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-
-  .section-header {
-    @include flex-between;
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
-    }
-
-    .view-all-btn {
-      @include button-reset;
-      background: $background-white;
-      color: $text-secondary;
-      border: 1px solid #000;
-      padding: 5px 12px;
-      align-items: center;
-      border-radius: $border-radius-sm;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all $transition-fast;
-
-      &:active {
-        transform: translateY(1px);
-      }
-    }
-  }
+  @extend .section-base;
 
   .webinar-grid {
     padding: 16px 0;
-    border-radius: 4px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 16px;
-    justify-items: center;
   }
 }
 
 .top-speaker-section {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-
-  .section-header {
-    @include flex-between;
-    padding-bottom: 16px;
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
-    }
-
-    .view-all-btn {
-      @include button-reset;
-      background: $background-white;
-      color: $text-secondary;
-      border: 1px solid #000;
-      padding: 5px 12px;
-      align-items: center;
-      border-radius: $border-radius-sm;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all $transition-fast;
-
-      &:active {
-        transform: translateY(1px);
-      }
-    }
-  }
+  @extend .section-base;
 
   .top-speaker-carousel {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-
-    // Hide scrollbar but keep functionality
-    scrollbar-width: none; // Firefox
-    -ms-overflow-style: none; // Internet Explorer 10+
-
-    &::-webkit-scrollbar {
-      display: none; // WebKit browsers
-    }
+    @include carousel-base;
 
     // Ensure cards don't shrink
     app-speaker-card {
@@ -370,91 +200,38 @@ $transition-fast: 0.2s ease;
 }
 
 .browser-topic-section {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
+  @extend .section-base;
+}
+
+.webinar-you-may-like-section {
+  @include section-base;
 
   .section-header {
-    @include flex-between;
-    padding-bottom: 16px;
+    @include flex-start;
 
     .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
-    }
-
-    .view-all-btn {
-      @include button-reset;
-      background: $background-white;
-      color: $text-secondary;
-      border: 1px solid #000;
-      padding: 5px 12px;
-      align-items: center;
-      border-radius: $border-radius-sm;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all $transition-fast;
-
-      &:active {
-        transform: translateY(1px);
-      }
+      @include section-title-base;
     }
   }
 }
 
-.webinar-you-may-like-section{
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-
-  .section-header {
-    display: flex;
-    justify-content: flex-start;
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: $text-primary;
-      margin: 0;
-      position: relative;
-      font-family: "Lexend Deca", sans-serif;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-      }
-    }
-  }
-
-
-}
-
-/* Responsive Design */
+/* Responsive Design - Optimized with better organization */
 @media (max-width: 768px) {
+  :host {
+    --section-padding: 16px;
+    --grid-gap: 12px;
+    --grid-min-width: 280px;
+  }
+
+  // Apply responsive styles to all sections that extend .section-base
+  .section-base,
   .Live-Webinar-section,
   .upcomming-webinar-section,
   .continue-watching-section,
   .webinar-based-on-interest-section,
-  .top-speaker-section {
-    padding: 16px;
-
+  .top-speaker-section,
+  .browser-topic-section,
+  .webinar-you-may-like-section {
     .section-header {
       flex-direction: column;
       align-items: flex-start;
@@ -471,13 +248,39 @@ $transition-fast: 0.2s ease;
 
     .webinar-grid {
       grid-template-columns: 1fr;
-      gap: 16px;
     }
 
     .continue-watching-carousel,
     .top-speaker-carousel {
-      gap: 12px;
       padding: 12px 0;
     }
   }
 }
+
+/* Performance Optimizations */
+// Use hardware acceleration for smoother animations
+.view-all-btn,
+.continue-watching-carousel,
+.top-speaker-carousel {
+  will-change: transform;
+}
+
+// Optimize grid layouts for better performance
+.webinar-grid {
+  contain: layout style;
+}
+
+// Improve carousel performance
+.continue-watching-carousel,
+.top-speaker-carousel {
+  contain: layout;
+  transform: translateZ(0); // Force hardware acceleration
+}
+
+/* Focus styles for better accessibility */
+.view-all-btn:focus {
+  outline: 2px solid var(--text-primary, $text-primary);
+  outline-offset: 2px;
+}
+
+

@@ -7,6 +7,7 @@ $live-color: #e2504b;
 $border-radius: 12px;
 $transition-fast: 0.2s ease;
 $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+$gradient-pink: linear-gradient(to bottom, #fad3c2 0%,#fae4e0 10%, #ffffff 20%, #ffffff 100%);
 
 // Mixins
 @mixin flex-center {
@@ -23,7 +24,7 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 .speaker-card {
   width: 200px;
   height: 150px;
-  background: $background-white;
+  background: $gradient-pink;
   border: 1px solid $border-light;
   border-radius: $border-radius;
   padding: 16px;
@@ -68,25 +69,23 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
         transform: translateX(-50%);
         @include flex-center;
         gap: 4px;
-        background: $background-white;
+        background: #FFE9E7;
         padding: 4px 8px;
         border-radius: 12px;
         font-size: 12px;
-        font-weight: 500;
+        font-weight: 400;
         color: $live-color;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-        .live-dot {
-          width: 8px;
-          height: 8px;
-          background: $live-color;
-          border-radius: 50%;
-          animation: pulse 2s infinite;
+        .live-icon {
+          width: 14px;
+          height: 14px;
+          filter: brightness(0) saturate(100%) invert(20%) sepia(89%) saturate(1747%) hue-rotate(347deg) brightness(87%) contrast(89%);
         }
 
         .live-text {
           color: $live-color;
-          font-weight: 600;
+          font-weight: 400;
         }
       }
     }
@@ -132,22 +131,6 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   &:hover .speaker-name .dropdown-arrow {
     transform: rotate(90deg) translateX(2px);
-  }
-}
-
-// Pulse animation for live dot
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
   }
 }
 

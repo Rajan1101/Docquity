@@ -5,7 +5,7 @@
       <img [src]="speakerData.avatar" [alt]="speakerData.name"
            [class]="speakerData.isLive ? 'speaker-avatar live' : 'speaker-avatar'">
       <div *ngIf="speakerData.isLive" class="live-indicator">
-        <span class="live-dot"></span>
+        <img src="assets/icons/Live-minimal.svg" alt="Live" class="live-icon">
         <span class="live-text">Live</span>
       </div>
     </div>

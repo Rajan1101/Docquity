@@ -2,9 +2,6 @@
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
   padding: 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -14,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
+  padding: 0px 24px;
   gap: 16px; /* Reduced from 24px to 16px for tighter spacing */
 }
 
@@ -106,6 +103,7 @@
 
 .nav-item.active {
   color: #000000;
+  padding: 18px 0px;
   border-bottom: 2px solid #000000; /* Add black underline for active state */
 }
 
@@ -206,7 +204,7 @@
   object-fit: cover;
   object-position: top;
   transition: transform 0.3s ease;
-  transform: scale(1.2);
+  transform: scale(1);
   transform-origin: top center;
 }
 
