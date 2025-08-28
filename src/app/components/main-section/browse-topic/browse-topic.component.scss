@@ -14,20 +14,24 @@ $transition-fast: 0.2s ease;
 }
 
 .browse-topic-container {
-  width: 97.5%;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px;
   border-radius: 12px;
-    background-color: #d9f4f9;
+  background-color: #d9f4f9;
+  box-sizing: border-box;
 
   .topics-row {
     display: flex;
     gap: 12px;
     margin-bottom: 12px;
     overflow-x: auto;
+    overflow-y: hidden;
     padding: 4px 0;
     scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    min-height: 40px;
 
     // Hide scrollbar but keep functionality
     scrollbar-width: none; // Firefox
@@ -53,6 +57,7 @@ $transition-fast: 0.2s ease;
       transition: all $transition-fast;
       border: 1px solid $border-light;
       flex-shrink: 0;
+      min-width: fit-content;
       @include flex-center;
 
       &:hover {
@@ -66,9 +71,57 @@ $transition-fast: 0.2s ease;
       }
     }
   }
+
+  // Pagination dots
+  .pagination-dots {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 8px 0;
+    width: 100%;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #c4c4c4;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.active {
+        background-color: #333;
+        width: 24px;
+        border-radius: 4px;
+      }
+
+      &:hover:not(.active) {
+        background-color: #888;
+        transform: scale(1.2);
+      }
+    }
+  }
 }
 
 /* Responsive Design */
+@media (min-width: 769px) {
+  .browse-topic-container {
+    .topics-row {
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
+      width: 100%;
+      max-width: 100%;
+      
+      .topic-tag {
+        flex-shrink: 0;
+        min-width: max-content;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .browse-topic-container {
     padding: 12px 16px;
@@ -76,10 +129,15 @@ $transition-fast: 0.2s ease;
     .topics-row {
       gap: 8px;
       margin-bottom: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
 
       .topic-tag {
         padding: 6px 12px;
         font-size: 13px;
+        flex-shrink: 0;
+        min-width: max-content;
       }
     }
   }
@@ -87,11 +145,20 @@ $transition-fast: 0.2s ease;
 
 @media (max-width: 480px) {
   .browse-topic-container {
+    padding: 0;
+    
     .topics-row {
       .topic-tag {
         padding: 5px 10px;
-        font-size: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        color: #000;
+        border: 1px solid black;
       }
+    }
+
+    .pagination-dots {
+      display: flex;
     }
   }
 }

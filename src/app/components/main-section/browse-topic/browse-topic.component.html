@@ -15,4 +15,13 @@
       {{ topic.name }} ({{ topic.count }})
     </div>
   </div>
+
+  <div class="pagination-dots">
+    <span 
+      *ngFor="let page of pages; let i = index" 
+      class="dot" 
+      [class.active]="currentPage === i"
+      (click)="goToPage(i)">
+    </span>
+  </div>
 </div>

@@ -41,6 +41,10 @@ export class BrowseTopicComponent {
     { name: 'General Medicine', count: 4 },
   ];
 
+    // Pagination properties
+  currentPage = 0;
+  totalPages = 3;
+
   get firstHalfTopics() {
     const halfLength = Math.ceil(this.topicsData.length / 2);
     return this.topicsData.slice(0, halfLength);
@@ -49,6 +53,15 @@ export class BrowseTopicComponent {
   get secondHalfTopics() {
     const halfLength = Math.ceil(this.topicsData.length / 2);
     return this.topicsData.slice(halfLength, this.topicsData.length);
+  }
+
+   // Mobile pagination methods
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  get pages() {
+    return Array(this.totalPages).fill(0).map((_, i) => i);
   }
 
   constructor() {}

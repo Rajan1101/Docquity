@@ -11,8 +11,14 @@
   }
 }
 
+
 @media (max-width: 480px) {
   .container {
-    padding: 0 12px;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  app-header {
+    display: none;
   }
 }
